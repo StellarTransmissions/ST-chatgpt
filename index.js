@@ -52,7 +52,7 @@ if (!TWITCH_USER) {
 if (!TWITCH_AUTH) {
     // https://dev.twitch.tv/console
     // https://twitchapps.com/tmi/
-    TWITCH_AUTH = "oauth:9wh6ujbu2mro28zhbl8z6z921iuyxz"
+    TWITCH_AUTH = "oauth:627t56gzr31kem6b1ptdvph5q21yxg"
     console.log("No TWITCH_AUTH found. Using oSetinhasBot auth as default.")
 }
 if (!COMMAND_NAME) {
