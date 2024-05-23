@@ -22,7 +22,7 @@ services:
       - key: TWITCH_USER  # https://dev.twitch.tv/console
         value: "markinsutton"
       - key: TWITCH_AUTH  # https://twitchapps.com/tmi/
-        value: "oauth:9wh6ujbu2mro28zhbl8z6z921iuyxz"
+        value: "oauth:26kaa5hlfnkfv24c2de0oc0q9b4x3h"
       - key: SEND_USERNAME
         value: "true"
       - key: ENABLE_TTS
