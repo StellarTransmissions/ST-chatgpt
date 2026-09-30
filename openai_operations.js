@@ -88,7 +88,7 @@ export class OpenAIOperations {
         } catch (error) {
             // Handle any errors that may occur
             console.error(error);
-            return "Sorry, something went wrong. Please try again later.";
+            return "Sorry, something went wrong. Please give me some more beer and try again later.";
         }
     }
 }
