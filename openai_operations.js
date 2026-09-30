@@ -1,39 +1,94 @@
-const OpenAI = require("openai");
+import OpenAI from "openai";
 
-// Initialize the OpenAI client
-// Ensure your OPENAI_API_KEY environment variable is set in your environment or Render dashboard
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+export class OpenAIOperations {
+    constructor(file_context, openai_key, model_name, history_length) {
+        this.messages = [{role: "system", content: file_context}];
+        this.openai = new OpenAI({
+            apiKey: openai_key,
+        });
 
-/**
- * Sends a prompt to the OpenAI API and returns the response.
- * @param {string} prompt - The input text/message for the model.
- * @returns {Promise<string>} - The text response from the model.
- */
-async function getOpenAIResponse(prompt) {
-  try {
-    const response = await openai.chat.completions.create({
-      // Updated from legacy gpt-3.5-turbo to a current production model name
-      model: process.env.OPENAI_MODEL || "gpt-4o-mini", 
-      messages: [
-        { 
-          role: "system", 
-          content: "You are a helpful assistant integrated into a Twitch chat application." 
-        },
-        { 
-          role: "user", 
-          content: prompt 
+        // Automatically map legacy or shut down models (like gpt-3.5-turbo) to a current model
+        if (!model_name || model_name.includes("3.5") || model_name.includes("davinci")) {
+            this.model_name = "gpt-4o-mini";
+        } else {
+            this.model_name = model_name;
         }
-      ],
-      max_tokens: 300,
-    });
 
-    return response.choices[0].message.content.trim();
-  } catch (error) {
-    console.p("Error communicating with OpenAI:", error);
-    return "Sorry, I ran into an error processing that request.";
-  }
+        this.history_length = history_length;
+    }
+
+    check_history_length() {
+        // Use template literals to concatenate strings
+        console.log(`Conversations in History: ${((this.messages.length / 2) - 1)}/${this.history_length}`);
+        if(this.messages.length > ((this.history_length * 2) + 1)) {
+            console.log('Message amount in history exceeded. Removing oldest user and agent messages.');
+            this.messages.splice(1, 2);
+        }
+    }
+
+    async make_openai_call(text) {
+        try {
+            // Add user message to messages
+            this.messages.push({role: "user", content: text});
+
+            // Check if message history is exceeded
+            this.check_history_length();
+
+            // Use await to get the response from openai
+            const response = await this.openai.chat.completions.create({
+                model: this.model_name,
+                messages: this.messages,
+                temperature: 1,
+                max_tokens: 256,
+                top_p: 1,
+                frequency_penalty: 0,
+                presence_penalty: 0,
+            });
+
+            // Check if response has choices
+            if (response.choices && response.choices.length > 0) {
+                let agent_response = response.choices[0].message.content;
+                console.log(`Agent Response: ${agent_response}`);
+                this.messages.push({role: "assistant", content: agent_response});
+                return agent_response;
+            } else {
+                // Handle the case when no choices are returned
+                throw new Error("No choices returned from openai");
+            }
+        } catch (error) {
+            // Handle any errors that may occur
+            console.error(error);
+            return "Sorry, something went wrong. Please try again later.";
+        }
+    }
+
+    async make_openai_call_completion(text) {
+        try {
+            // Note: text-davinci-003 and legacy completion endpoints have been shut down by OpenAI.
+            // This has been updated to use the modern chat completions format for compatibility.
+            const response = await this.openai.chat.completions.create({
+                model: this.model_name,
+                messages: [{role: "user", content: text}],
+                temperature: 1,
+                max_tokens: 256,
+                top_p: 1,
+                frequency_penalty: 0,
+                presence_penalty: 0,
+            });
+
+            // Check if response has choices
+            if (response.choices && response.choices.length > 0) {
+                let agent_response = response.choices[0].message.content;
+                console.log(`Agent Response: ${agent_response}`);
+                return agent_response;
+            } else {
+                // Handle the case when no choices are returned
+                throw new Error("No choices returned from openai");
+            }
+        } catch (error) {
+            // Handle any errors that may occur
+            console.error(error);
+            return "Sorry, something went wrong. Please try again later.";
+        }
+    }
 }
-
-module.exports = { getOpenAIResponse };
