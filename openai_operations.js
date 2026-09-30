@@ -9,7 +9,7 @@ export class OpenAIOperations {
 
         // Automatically map legacy or shut down models (like gpt-3.5-turbo) to a current model
         if (!model_name || model_name.includes("3.5") || model_name.includes("davinci")) {
-            this.model_name = "gpt-4o-mini";
+            this.model_name = "gpt-4o-turbo";
         } else {
             this.model_name = model_name;
         }
