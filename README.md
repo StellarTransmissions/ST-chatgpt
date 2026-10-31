@@ -67,15 +67,7 @@ Press the button to deploy this on Cyclic or Render.
 
 [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy)
 
-### 5.2. Deploy to Cyclic
-    
-[![Deploy to Cyclic](https://deploy.cyclic.app/button.svg)](https://deploy.cyclic.app/)
 
-### 5.3. Login with Github
-
-Log in with your Github account there and select your twitch-chatgpt repository for deployment. 
-
-These services are free to use and only very big streams will run into issues with their request contingent.
 
 ---
 
@@ -84,8 +76,7 @@ Go to the variables/environment tab in your deployment.
 
 Create 3 new variables. The exact spelling of these variables is important:
 
-### 6.1. Required Variables for both Render and Cyclic
-
+### 6.1. Required Variables for both Render
 1. _**OPENAI_API_KEY**_
   - This is where you paste your openAI Secure Key.
 
@@ -98,7 +89,7 @@ Create 3 new variables. The exact spelling of these variables is important:
     - create a GitHub issue requesting "oSetinhasBot" account to follow your channel.
     - connect your own account, see variable 7. and 8.
 
-### 6.2. Optional Variables for both Render and Cyclic
+### 6.2. Optional Variables for both Render
 
 3. _**GPT_MODE**_
   - (default: CHAT)
