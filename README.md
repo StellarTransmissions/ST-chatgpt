@@ -50,7 +50,7 @@ You will use this key to authorize your version of this chatbot with openai.
 ---
 
 
-## 5. Deploy this repo on Cylic or Render for free
+## 5. Deploy this repo on Render for free
 
 Render is the latest addition to our repo. With Render you can have a server running 24 hours a day for free.
 You **WON'T** need to use NIGHTBOT or STREAMELEMENTS to host your bot anymore!
