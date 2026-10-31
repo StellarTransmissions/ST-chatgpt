@@ -61,7 +61,7 @@ Cyclic is our old approach with certain limitations. You can still use it if you
 You will have to use NIGHTBOT or STREAMELEMENTS to host your bot, and they have a **10seconds timeout**.
 Also, Twitch has a **400 character limit** on chat messages, so you will have to use the !continue command to continue a conversation.
 
-Press the button to deploy this on Cyclic or Render.
+Press the button to deploy this on Render.
 
 ### 5.1. Deploy to Render
 
@@ -76,11 +76,11 @@ Go to the variables/environment tab in your deployment.
 
 Create 3 new variables. The exact spelling of these variables is important:
 
-### 6.1. Required Variables for both Render
+### 6.1. Required Variables for Render
 1. _**OPENAI_API_KEY**_
   - This is where you paste your openAI Secure Key.
 
-### 6.2 Required Variables only for Render
+### 6.2 Required Variables Render
 
 2. _**CHANNELS**_
   - This is where you put your twitch channel name.
@@ -89,7 +89,7 @@ Create 3 new variables. The exact spelling of these variables is important:
     - create a GitHub issue requesting "oSetinhasBot" account to follow your channel.
     - connect your own account, see variable 7. and 8.
 
-### 6.2. Optional Variables for both Render
+### 6.2. Optional Variables for Render
 
 3. _**GPT_MODE**_
   - (default: CHAT)
